@@ -1,0 +1,15 @@
+version: "4.2"
+
+services:
+    backend:
+        build: .
+        container_name : training-backend
+        command: python manage.py runserver 0.0.0.0:9000
+        volumes:
+            - ./core:/app
+        ports:
+            - "9000:9000"
+        environment:
+            - SECRET_KEY=22
+            - DEBUG=True
+            - ALLOWED_HOSTS=127.0.0.1
