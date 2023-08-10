@@ -14,14 +14,15 @@ class UserManager(BaseUserManager):
         user.save()
         return user
     def create_superuser(self,email,password,**kwargs):
-        kwargs.setdefault('is_staff',True)
+        kwargs.setdefault("is_staff",True)
         kwargs.setdefault("is_superuser",True)
         kwargs.setdefault("is_active",True)
         if kwargs.get('is_staff') is not True:
             raise ValueError(_("superuser must have staff permissions"))
         if kwargs.get('is_superuser') is not True:
             raise ValueError(_("Superuser must have superuser permissions"))
-        return self.create_superuser(email, password, **kwargs)
+        return self.create_user(email, password, **kwargs)
+    
 class Users(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(max_length=255,unique=True)
     is_active = models.BooleanField(default=True)
@@ -31,6 +32,8 @@ class Users(AbstractBaseUser,PermissionsMixin):
     REQUIRED_FIELDS = []
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+
+    objects = UserManager()
 
     def __str__(self):
         return self.email
