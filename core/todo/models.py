@@ -10,7 +10,7 @@ class TaskTodo(models.Model):
     createdOn = models.DateTimeField(auto_now_add=True)
     updatedOn = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
     class Meta():
         order_with_respect_to ="user"

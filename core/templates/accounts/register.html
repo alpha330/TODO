@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Register User</h1>
-    <form method="POST" action="{% url 'accounts:register-view' %}">
+    <form method="POST" url="{% url 'accounts:register-view' %}">
         {% csrf_token %}
         {{ form }}
         <button type="submit" >Register</button>

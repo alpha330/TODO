@@ -6,7 +6,7 @@
     <title>create task</title>
 </head>
 <body>
-    <form submit="POST" action="{% url 'create_task' %}">
+    <form submit="POST">
         {% csrf_token %}
         {{ form }}
         <button type="submit">save task</button>
