@@ -12,7 +12,7 @@
     <h5>{{task.createdOn}}</h5>
     {% endfor%}
 
-    <button><a href="{% url 'todo:create_task' %}">Create Tasks</a>
+    <button><a href="{% url 'create_task' %}">Create Tasks</a>
     <button><a href="{% url 'accounts:logout-view' %}">Logout</a>
 </body>
 </html>
