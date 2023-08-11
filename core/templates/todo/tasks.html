@@ -10,6 +10,14 @@
     {% for task in tasks %}
     <h5>{{task.title}}</h5>
     <h5>{{task.createdOn}}</h5>
+    <button><a href="{% url 'task_update' pk=task.id %}">Update Task</a></button>
+    <button><a href="{% url 'task_complete' pk=task.id %}">Complete Task</a></button>
+    <button><a href="{% url 'delete_task' pk=task.id %}">Delete Task</a></button>
+    {% if task.complete == 1 %}
+       <h5>Task is complete!</h5>
+    {% else %}
+       <h5>Task in Pending</h5>
+    {% endif %}
     {% endfor%}
 
     <button><a href="{% url 'create_task' %}">Create Tasks</a>
