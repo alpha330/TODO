@@ -8,11 +8,16 @@
 <body>
     <h1>Tasks Todo</h1>
     {% for task in tasks %}
+<<<<<<< HEAD
     <h5>{{task.title}}</h5>
     <h5>{{task.createdOn}}</h5>
+=======
+    {{task.title}}
+    {{task.createdOn}}
+>>>>>>> parent of 1b9c605 (update)
     {% endfor%}
 
-    <button><a href="{% url 'create_task' %}">Create Tasks</a>
+    <button><a href="{% url 'todo:create_task' %}">Create Tasks</a>
     <button><a href="{% url 'accounts:logout-view' %}">Logout</a>
 </body>
 </html>
