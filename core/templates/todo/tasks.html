@@ -10,9 +10,14 @@
     {% for task in tasks %}
     {{task.title}}
     {{task.createdOn}}
+    {% if task.complete == 1 %}
+    <h6>task completed</h6>
+    {% else %}
+    <h4>Pending</h4>
+    {% endif %}
     {% endfor%}
 
-    <button><a href="{% url 'todo:create_task' %}">Create Tasks</a>
+    <button><a href="{% url 'create_task' %}">Create Tasks</a>
     <button><a href="{% url 'accounts:logout-view' %}">Logout</a>
 </body>
 </html>
