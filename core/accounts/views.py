@@ -7,15 +7,29 @@ from .forms import UserCreationForm
 # Create your views here.
 
 class LoginUser(LoginView):
+    """
+    view class with parent LoginView in auth views
+    rewrite Attributes :
+    template_name , Fields,Redirect if user authenticated
+    """ 
     template_name = "accounts/login.html"
     fields = "email","password"
     redirect_authenticated_user = True
 
     def get_success_url(self):
-          return reverse_lazy("tasks_todo")
+     """
+     def to reverse urls name if login successful
+     """    
+     return reverse_lazy("tasks_todo")
     
 
 class RegisterUser(FormView):
+     """_summary_
+
+     child class from parent class formview from django generic view
+     with Attributes template name redirect style form_class comes from forms.py accounts app
+     and success url is the tasks todo list
+     """
      template_name="accounts/register.html"
      redirect_authenticated_user = True
      form_class=UserCreationForm

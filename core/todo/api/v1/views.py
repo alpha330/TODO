@@ -1,5 +1,3 @@
-from rest_framework.response import Response
-from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets,filters
 from todo.models import TaskTodo
@@ -13,6 +11,19 @@ from django_filters.rest_framework import DjangoFilterBackend
     
     
 class TaskModelViewSet(viewsets.ModelViewSet):
+    """_summary_
+    viewset class to work as modelviewset
+    Attributes:
+    permission can and and update on permission_class
+    pagination is applied in settings.py file
+    filter backend is used for filtering data based on query parameters
+    queryset to get data from model app can use object.filter or object.all
+    serializer_class : it will be the same as of models.py file
+    lookup_field : field name which should be unique to identify each row
+    ordering_fields : fields by which we can order our results
+    search_fields : fields by which we can perform search operations
+    
+    """
     permission_classes = [IsAuthenticated,IsOwnerOrReadOnly]
     serializer_class = TaskTodoSerializer
     pagination_class = LargeResultsSetPagination
@@ -21,8 +32,5 @@ class TaskModelViewSet(viewsets.ModelViewSet):
     filterset_fields = ['user', 'title','complete','createdOn','updatedOn']
     search_fields = ['title']
     ordering_fields = ['id', 'createdOn', 'complete']
-    @action(methods=["get"],detail=False)
-    def get_ok(self,request):
-        return Response({"detail":"OK"})
 
     
