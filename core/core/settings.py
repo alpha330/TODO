@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts',
     'todo',
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,9 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.Users'
 LOGIN_URL = "/accounts/login"
+
+
+#RestFrameWork General Configs
+REST_FRAMEWORK = { 
+                  'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' 
+                  }
