@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 from .views import TasksTodo,CreateTasks,UpdateTask,CompleteTask,DeleteTask
 
 # determine urls form todo apps activity
@@ -9,4 +9,5 @@ urlpatterns =[
     path("update/<int:pk>", UpdateTask.as_view(),name="task_update"),
     path("complete/<int:pk>", CompleteTask.as_view(),name="task_complete"),
     path("delete/<int:pk>", DeleteTask.as_view(),name="delete_task"),
+    path("api/v1/",include("todo.api.v1.urls"))
 ]
