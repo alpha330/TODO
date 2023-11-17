@@ -9,5 +9,6 @@ coreapi
 markdown  
 django-filter
 drf-yasg[validation]
+djangorestframework-simplejwt
 
 #Deployment Module
