@@ -1,13 +1,19 @@
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegistrationSerializer,CustomAuthTokenSerializer,CustomTokenObtainPairSerializer
+from .serializers import (
+    RegistrationSerializer,CustomAuthTokenSerializer,CustomTokenObtainPairSerializer
+    ,ChangePasswordSerializer
+    )
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.contrib.auth import get_user_model
+
+Users=get_user_model()
 class RegistrationApiView(generics.GenericAPIView):
     serializer_class = RegistrationSerializer
     
@@ -44,3 +50,25 @@ class CustomDiscardAuthToken(APIView):
     
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+class ChangePasswordApiView(generics.GenericAPIView):
+    serializer_class = ChangePasswordSerializer
+    Model = Users
+    permission_classes = [IsAuthenticated]
+    
+    def get_object(self,queryset=None):
+        obj = self.request.user
+        return obj
+    def put(self,request,*args,**kwargs):
+        self.object=self.get_object()
+        serializer = self.get_serializer(data = request.data)
+        if serializer.is_valid():
+            #Check Old Password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old password":"Is Wrong"},status=status.HTTP_400_BAD_REQUEST)
+            #set new password and updates password and save
+            self.object.set_password(serializer.data.get('new_password_1'))
+            self.object.save()
+            return Response({"detail":"password has been update"},status=status.HTTP_200_OK)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+    

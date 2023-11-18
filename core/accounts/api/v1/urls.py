@@ -11,6 +11,7 @@ urlpatterns = [
     # Registration API urls
     path("registration/",views.RegistrationApiView.as_view(),name="registration"),
     # Change Password Urls Configs
+    path("change-password/",views.ChangePasswordApiView.as_view(),name="change-password"),
     # Reset Password Urls Topology
     # Login-Logout Token 
     path("token/login/",views.CustomAuthToken.as_view(),name="token-login"),
