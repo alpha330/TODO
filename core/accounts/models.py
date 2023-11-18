@@ -36,6 +36,7 @@ class UserManager(BaseUserManager):
         kwargs.setdefault("is_staff",True)
         kwargs.setdefault("is_superuser",True)
         kwargs.setdefault("is_active",True)
+        kwargs.setdefault("is_verified",True)
         if kwargs.get('is_staff') is not True:
             raise ValueError(_("superuser must have staff permissions"))
         if kwargs.get('is_superuser') is not True:
@@ -54,6 +55,7 @@ class Users(AbstractBaseUser,PermissionsMixin):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     created_date = models.DateTimeField(auto_now_add=True)
