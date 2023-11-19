@@ -81,6 +81,7 @@ class TestEmailApiView(generics.GenericAPIView):
             'Here is the message.',
             'from@example.com',
             ['to@example.com'],
-            fail_silently=False,)
+            fail_silently=False,
+            )
         return Response("email sent")
     
