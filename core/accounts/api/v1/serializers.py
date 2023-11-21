@@ -91,3 +91,41 @@ class ChangePasswordSerializer(serializers.Serializer):
             raise serializers.ValidationError({"new_password_1":e.messages})
             
         return super().validate(attrs)
+    
+class ReconfirmationApiSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    def validate(self,attrs):
+        email = attrs.get("email")
+        try:
+            user_obj = Users.objects.get(email=email)
+        except Users.DoesNotExist:
+            raise serializers.ValidationError({"detail":"email dose not exist"})
+        if user_obj.is_verified:
+            raise serializers.ValidationError({"detail":"User was verified before"})
+        attrs["user"]=user_obj
+        return super().validate(attrs)
+    
+    
+class PasswordResetLinkSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    def validate(self,attrs):
+        email = attrs.get("email")
+        try:
+            user_obj = Users.objects.get(email=email)
+        except User.DoesNotExist:
+            raise serializers.ValidationError({"detail":"email dose not exist"})
+        attrs["user"]=user_obj
+        return super().validate(attrs)
+    
+class ResetPasswordSerializer(serializers.Serializer):
+    new_password = serializers.CharField(required=True)
+    new_password_1 = serializers.CharField(required=True)
+    
+    def validate(self,attrs):
+        if attrs.get('new_password') != attrs.get('new_password_1'):
+            raise serializers.ValidationError({'detail':'password dose not match'})
+        try:
+            validate_password(attrs.get('new_password'))
+        except exceptions.ValidationError as e:
+            raise serializers.ValidationError({'new_password':list(e.messages)})         
+        return super().validate(attrs)
