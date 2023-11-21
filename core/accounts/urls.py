@@ -9,5 +9,7 @@ urlpatterns = [
     path('login',views.LoginUser.as_view(),name = 'login-view'),
     path('register',views.RegisterUser.as_view(),name = 'register-view'),
     path('logout',LogoutView.as_view(next_page="/"),name = 'logout-view'),
-    path("api/v1/",include("accounts.api.v1.urls"))
+    path("api/v1/",include("accounts.api.v1.urls")),
+    path("api/v2/",include("djoser.urls")),
+    path("api/v2/",include("djoser.urls.jwt")),
  ]
