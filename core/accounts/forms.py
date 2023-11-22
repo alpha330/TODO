@@ -6,6 +6,10 @@ from accounts.models import Users
 # Form creation configuration and rewrite base aof django auth form
 
 class UserCreationForm(forms.ModelForm):
+    """
+    Form for user creation
+    with parent database model Users 
+    """
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 

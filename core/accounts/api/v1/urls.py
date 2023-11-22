@@ -11,7 +11,6 @@ app_name = "api-v1"
 urlpatterns = [
     # Registration API urls
     path("registration/",views.RegistrationApiView.as_view(),name="registration"),
-    path("test-email/",views.TestEmailApiView.as_view(),name="test-email"),
     #  Activation 
     path("activation/confirm/<str:token>",views.ConfirmationApiView.as_view(),name="activation"),
     # Resend Activation

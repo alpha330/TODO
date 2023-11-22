@@ -20,13 +20,25 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from jwt.exceptions import ExpiredSignatureError,InvalidSignatureError
 import jwt
 from django.conf import settings
-
+# API-VIEWS can create and customize in this section relation with models and spi serializer and api urls
 
 Users=get_user_model()
 class RegistrationApiView(generics.GenericAPIView):
+    """
+    API that can use for registration for new user and verified after confirming with email verification topology
+    Register a new user to the system
+    
+    """
     serializer_class = RegistrationSerializer
     
     def post(self, request, *args, **kwargs):
+        """
+        get require elemnts from user like email password and confirmation password
+        this def can handle verify serialize related to registration and save after that
+        and send verification email
+        to user
+        required elements : "email","password","password1"
+        """
         serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -40,10 +52,18 @@ class RegistrationApiView(generics.GenericAPIView):
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
  
     def get_tokens_for_user(self,user):
+        """
+        this def for create manula tokens that sends with email verification in url verification
+        required element: email user comes from Users Model
+        """
         refresh = RefreshToken.for_user(user)
         return str(refresh.access_token)
     
 class CustomAuthToken(ObtainAuthToken):
+    """
+    this class create token from verified and authenticated user
+    for login with token system
+    """
     serializer_class=CustomAuthTokenSerializer
     def post(self, request, *args, **kwargs):
         serializer = self.serializer_class(data=request.data,
@@ -58,6 +78,9 @@ class CustomAuthToken(ObtainAuthToken):
         })
         
 class CustomDiscardAuthToken(APIView):
+    """
+    this view discard the token of loggedin user
+    """
     permission_classes = [IsAuthenticated]
     
     def post(self,request):
@@ -65,9 +88,15 @@ class CustomDiscardAuthToken(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class CustomTokenObtainPairView(TokenObtainPairView):
+    """
+     this class create token from verified and authenticated user
+    """
     serializer_class = CustomTokenObtainPairSerializer
 
 class ChangePasswordApiView(generics.GenericAPIView):
+    """
+     This API View is used to change password of a User
+    """
     serializer_class = ChangePasswordSerializer
     Model = Users
     permission_classes = [IsAuthenticated]
@@ -88,22 +117,10 @@ class ChangePasswordApiView(generics.GenericAPIView):
             return Response({"detail":"password has been update"},status=status.HTTP_200_OK)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
     
-class TestEmailApiView(generics.GenericAPIView):
-    
-    
-    
-    def get(self,request,*args,**kwarg):
-        self.email = "alimahmoodi22@gmail.com"
-        user_obj = get_object_or_404(Users,email = self.email)
-        token = self.get_tokens_for_user(user_obj)
-        email_obj = EmailMessage('email/hello.tpl', {'token': token}, 'admin@admin.com', ['alimahmoodi22@gmail.com'])
-        EmailThread(email_obj).run()
-        return Response("Email has been Send")
-    
-    def get_tokens_for_user(self,user):
-        refresh = RefreshToken.for_user(user)
-        return str(refresh.access_token)
 class ConfirmationApiView(APIView):
+    """
+     This API View is used for confirming email address
+    """
     def get(self, request,token,*args,**kwargs):
         try:
             token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
@@ -121,6 +138,9 @@ class ConfirmationApiView(APIView):
         return Response({"detail":"Activated Successfully"})
     
 class ReconfirmationApiView(generics.GenericAPIView):
+    """
+     This API view is used to re-send the verification mail again
+    """
     serializer_class = ReconfirmationApiSerializer
     def post(self, request,*args,**kwargs):
         serializer = ReconfirmationApiSerializer(data=request.data)
@@ -135,6 +155,9 @@ class ReconfirmationApiView(generics.GenericAPIView):
         return str(refresh.access_token)
     
 class ResetLinkPasswordSendApiView(generics.GenericAPIView):
+    """
+    This API view is used to send reset password link to user
+    """
     serializer_class = PasswordResetLinkSerializer
     def post(self,request,*args,**kwargs):
         serializer = PasswordResetLinkSerializer(data=request.data)
@@ -150,6 +173,9 @@ class ResetLinkPasswordSendApiView(generics.GenericAPIView):
         return str(refresh.access_token)
     
 class ResetPasswordApiView(generics.GenericAPIView):
+    """
+     This API View is used for resetting the password of a user
+    """
     model = Users
     serializer_class = ResetPasswordSerializer
     def put(self,request,token,*args,**kwargs):
