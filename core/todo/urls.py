@@ -8,6 +8,7 @@ from .views import (
 )
 
 # determine urls form todo apps activity
+app_name = "todo"
 
 urlpatterns = [
     path("", TasksTodo.as_view(), name="tasks_todo"),
