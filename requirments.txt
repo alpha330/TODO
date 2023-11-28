@@ -16,3 +16,9 @@ djoser
 
 #Email Templates And Modules
 django-mail-templated
+# refactoring and test
+black
+flake8
+pytest
+pytest-django
+faker
