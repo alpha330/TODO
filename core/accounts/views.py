@@ -22,7 +22,7 @@ class LoginUser(LoginView):
         """
         def to reverse urls name if login successful
         """
-        return reverse_lazy("tasks_todo")
+        return reverse_lazy("todo:tasks_todo")
 
 
 class RegisterUser(FormView):

@@ -205,7 +205,7 @@ class ReconfirmationApiView(generics.GenericAPIView):
         EmailThread(email_obj).run()
         return Response(
             {"detail": "User Activation Resend Successfully"},
-            status=status.HTTP_200_OK,
+            status=status.HTTP_201_CREATED,
         )
 
     def get_tokens_for_user(self, user):
