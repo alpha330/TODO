@@ -17,4 +17,4 @@ jobs:
     - name: setup docker compose
       run: docker-compose up -t
     - name: run test for pytest config
-      run: docker exec training-backend sh-c "pytest ."
+      run: docker exec training-backend sh -c "pytest ."
