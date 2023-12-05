@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Django TODO project test for api blogs and accounting
 
 on:
   push:
