@@ -6,9 +6,7 @@ from .forms import FormUpdateTask
 from django.urls import reverse_lazy
 from django.views import View
 from django.shortcuts import redirect
-from django.http import HttpResponse
-from time import sleep
-from .tasks import delete_completed_tasks
+
 
 # Create your views here.
 class TasksTodoJob(LoginRequiredMixin, ListView):
