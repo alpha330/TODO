@@ -20,5 +20,10 @@
           # API-TEST For API-restframwork V1 for accounts app
               14 test will be applied 
 
+    # redis as service in docker-compose as redis
+    # worker as service in docker-compose as worker
+    # deploy celery in django backend todo for background proccessing to synchronise with redis
+    # deploy celery django fo admin dashboard to mange schadualing tasks
+
         
               

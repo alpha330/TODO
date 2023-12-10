@@ -9,7 +9,7 @@ from django.shortcuts import redirect
 
 
 # Create your views here.
-class TasksTodo(LoginRequiredMixin, ListView):
+class TasksTodoJob(LoginRequiredMixin, ListView):
     """
     Create View For Listing Tasks appends to template
     """
@@ -29,7 +29,7 @@ class CreateTasks(LoginRequiredMixin, CreateView):
 
     model = TaskTodo
     fields = ["title"]
-    success_url = reverse_lazy("tasks_todo")
+    success_url = reverse_lazy("todo:tasks_todo")
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -54,7 +54,7 @@ class CompleteTask(LoginRequiredMixin, View):
     """
 
     model = TaskTodo
-    success_url = reverse_lazy("tasks_todo")
+    success_url = reverse_lazy("todo:tasks_todo")
 
     def get(self, request, *args, **kwargs):
         object = TaskTodo.objects.get(id=kwargs.get("pk"))
@@ -77,3 +77,4 @@ class DeleteTask(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
+

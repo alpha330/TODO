@@ -5,7 +5,7 @@ from todo import views
 app_name = "todo"
 
 urlpatterns = [
-    path("", views.TasksTodo.as_view(), name="tasks_todo"),
+    path("", views.TasksTodoJob.as_view(), name="tasks_todo"),
     path("create/", views.CreateTasks.as_view(), name="create_task"),
     path("update/<int:pk>", views.UpdateTask.as_view(), name="task_update"),
     path("complete/<int:pk>", views.CompleteTask.as_view(), name="task_complete"),
