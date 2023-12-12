@@ -25,5 +25,18 @@
     # deploy celery in django backend todo for background proccessing to synchronise with redis
     # deploy celery django fo admin dashboard to mange schadualing tasks
 
-        
+    # API Request from outside and send to Cache Server Redis for Save in specific time to load from redis Db
+    # for more speed loading
+
+    # Live Weather API in TODO/API/V1
+     {{localhost}}/api/v1/live/weather/?city={{CityName}}
+     {{CityName}} : Name of city you want current weather specification like Tehran,London,Paris ...... Default is Tehran
+     Example : http://127.0.0.1:9000/api/v1/live/weather/?city=london  
+
+
+    # Live Crypto Price API in TODO/API/V1
+    {{localhost}}/api/v1/live/crypto/?symbol={{CryptoAbbreviation}}
+    {{CryptoAbbreviation}}: can vary like BTC,ETH,XRP.... Default is BTC
+    Example : http://127.0.0.1:9000/api/v1/live/crypto/?symbol=XRP 
+
               
