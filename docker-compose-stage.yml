@@ -1,0 +1,69 @@
+version: "3.9"
+
+services:
+    redis:
+        container_name: redis
+        image: redis
+        ports:
+            - "6379:6379"
+        restart: always
+        command: redis-server --save 60 1 --loglevel warning
+    backend:
+        build: .
+        container_name : training-backend
+        command: > 
+            sh -c "python manage.py makemigrations &&
+                   python manage.py migrate &&
+                   python manage.py collectstatic --noinput &&
+                   gunicorn core.wsgi --bind 0.0.0.0:9000 &&
+                   celery -A core beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler"
+        volumes:
+            - ./core:/app
+            - static_volume:/app/static
+            - media_volume:/app/media
+        expose:
+            - "9000"
+        environment:
+            - SECRET_KEY=22
+            - DEBUG=False
+        depends_on:
+            - redis
+    worker:
+        build: .
+        command: celery -A core worker --loglevel INFO
+        volumes:
+            - ./core:/app
+        depends_on:
+            - redis
+            - backend
+
+    nginx:
+        image: nginx
+        container_name: nginx
+        restart: always
+        ports:
+            - "80:80"
+        volumes:
+            - ./default.conf:/etc/nginx/conf.d/default.conf
+            - static_volume:/home/app/static
+            - media_volume:/home/app/media
+        depends_on:
+            - redis
+            - backend
+
+    postgres-db:
+        image: postgres:13-alpine
+        container_name: postgres-db
+        environment:
+          - POSTGRES_DB=todo-db
+          - POSTGRES_USER=alimm
+          - POSTGRES_PASSWORD=DjangoBackend
+          - POSTGRES_INITDB_ARGS= '--encoding=UTF-8 --lc-collate=C --lc-ctype=C'
+        ports:
+          - "5432:5432"
+        volumes:
+            - postgres-volume:/var/lib/postgresql/data
+volumes:
+    static_volume:
+    media_volume:
+    postgres-volume:
