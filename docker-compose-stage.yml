@@ -58,7 +58,6 @@ services:
           - POSTGRES_DB=todo-db
           - POSTGRES_USER=alimm
           - POSTGRES_PASSWORD=DjangoBackend
-          - POSTGRES_INITDB_ARGS= '--encoding=UTF-8 --lc-collate=C --lc-ctype=C'
         ports:
           - "5432:5432"
         volumes:
