@@ -39,4 +39,10 @@
     {{CryptoAbbreviation}}: can vary like BTC,ETH,XRP.... Default is BTC
     Example : http://127.0.0.1:9000/api/v1/live/crypto/?symbol=XRP 
 
-              
+if u want ran the project in STAGE mode user docker-compose-stage.yml
+     Specification of Stage mode:
+         - change debug mode to False
+         - Change database from sqlite to postgress with specific container
+         - use gunicorn as requset server from nodejs to django
+         - use nodejs as WebServer distributer with django and gunicorn  
+         - config nodejs to handle requests to gunicorn for request and static and media files for django      

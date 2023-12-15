@@ -4,6 +4,7 @@ python-decouple==3.5
 Pillow==9.0.0
 djangorestframework
 coreapi
+psycopg2-binary
 
 #Third Party Module
 markdown  
@@ -13,6 +14,7 @@ djangorestframework-simplejwt
 djoser
 
 #Deployment Module
+gunicorn
 
 #Email Templates And Modules
 django-mail-templated
