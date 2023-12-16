@@ -22,7 +22,7 @@ services:
         environment:
             - SECRET_KEY=22
             - DEBUG=True
-            - ALLOWED_HOSTS=127.0.0.1
+            - ALLOWED_HOSTS=0.0.0.0
         depends_on:
             - redis
     worker:
