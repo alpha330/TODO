@@ -44,5 +44,17 @@ services:
             - smtp4dev-data:/smtp4dev
         environment:
           - ServerOptions__HostName=smtp4dev
+    postgres-db:
+        image: postgres:13-alpine
+        container_name: postgres-db
+        environment:
+          - POSTGRES_DB=todo-db
+          - POSTGRES_USER=alimm
+          - POSTGRES_PASSWORD=DjangoBackend
+        ports:
+          - "5432:5432"
+        volumes:
+            - postgres-volume:/var/lib/postgresql/data
+            
 volumes:
   smtp4dev-data:
