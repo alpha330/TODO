@@ -16,8 +16,10 @@ jobs:
     - uses: actions/checkout@v3
     - name: setup docker compose
       run: docker-compose up -d
+    - name: Make Migration And Migrate
+      run: sudo docker exec todobackend sh -c "python manage.py migrate"
     - name: run test for pytest config
-      run: docker exec todobackend sh -c "flake8 && pytest ."
+      run: docker exec todobackend sh -c "pytest && flake8 ."
 
   Deploy:
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
@@ -34,6 +36,7 @@ jobs:
         host: ${{secrets.HOST_VPS}}
         port: ${{secrets.PORT}}
         script: |
-          docker-compose -f ./TODO/docker-compose-stage.yml stop
+          cd ${{secrets.PATH_GITHUB}} 
+          docker-compose -f docker-compose-stage.yml stop
           git pull
-          docker-compose -f ./TODO/docker-compose-stage.yml start
+          docker-compose -f docker-compose-stage.yml start
