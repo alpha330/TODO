@@ -17,7 +17,7 @@ jobs:
     - name: setup docker compose
       run: docker-compose up -d
     - name: Make Migration And Migrate
-      run: docker exec todobackend sh -c "python manage.py migrate"
+      run: sudo docker exec todobackend sh -c "python manage.py migrate"
     - name: run test for pytest config
       run: docker exec todobackend sh -c "pytest && flake8 ."
 
