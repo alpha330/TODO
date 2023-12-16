@@ -2,9 +2,9 @@ name: Django TODO project test for api blogs and accounting
 
 on:
   push:
-    branches: [ "Excersise11" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "Exersise11" ]
+    branches: [ "main" ]
 
 jobs:
 
