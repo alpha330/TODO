@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login in </title>
+    <title>login in to TODOs</title>
 </head>
 <body>
-    <h>login</h>
+    <p><h3>login in to TODOs</h3></p>
     <form method="POST" url="{% url 'accounts:login-view' %}">
         {% csrf_token %}
         {{form}}
