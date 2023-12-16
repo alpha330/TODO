@@ -10,7 +10,7 @@ services:
         command: redis-server --save 60 1 --loglevel warning
     backend:
         build: .
-        container_name : backend
+        container_name : todobackend
         command: > 
             sh -c "python manage.py migrate &&
                    python manage.py runserver 0.0.0.0:9000 &&
