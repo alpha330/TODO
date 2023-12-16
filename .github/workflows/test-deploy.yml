@@ -34,7 +34,7 @@ jobs:
         host: ${{secrets.HOST_VPS}}
         port: ${{secrets.PORT}}
         script: |
-          cd ${{secrets.PATH_BLOG}}
+          cd ${{secrets.PATH_GITHUB}}
           docker-compose -f docker-compose-stage.yml stop
           git pull
           docker-compose -f docker-compose-stage.yml start
