@@ -17,7 +17,7 @@ jobs:
     - name: setup docker compose
       run: docker-compose up -d
     - name: run test for pytest config
-      run: docker exec todobackend sh -c "flake8 ."
+      run: docker exec todobackend sh -c "pytest && flake8 ."
 
   Deploy:
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
