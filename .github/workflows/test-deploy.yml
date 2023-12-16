@@ -31,7 +31,7 @@ jobs:
       with:
         username: ${{secrets.USERNAME}}
         password: ${{secrets.PASSWORD}}
-        host: ${{secrets.HOST}}
+        host: ${{secrets.HOST_VPS}}
         port: ${{secrets.PORT}}
         script: |
           cd ${{secrets.PATH_BLOG}}
