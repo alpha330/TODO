@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     "rest_framework_simplejwt",
     "mail_templated",
     "djoser",
-    'django_celery_beat',
+    "django_celery_beat",
 ]
 
 MIDDLEWARE = [
@@ -96,13 +96,13 @@ WSGI_APPLICATION = "core.wsgi.application"
 #     }
 # }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todo-db',
-        'USER': 'alimm',
-        'PASSWORD': 'DjangoBackend',
-        'HOST': 'postgres-db',
-        'PORT': '5432',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "todo-db",
+        "USER": "alimm",
+        "PASSWORD": "DjangoBackend",
+        "HOST": "postgres-db",
+        "PORT": "5432",
     }
 }
 
@@ -224,6 +224,6 @@ CACHES = {
         "LOCATION": "redis://redis:6379/2",
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
+        },
     }
 }

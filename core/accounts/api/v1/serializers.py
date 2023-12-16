@@ -28,9 +28,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         confirmation fields
         """
         if attrs.get("password") != attrs.get("password_1"):
-            raise serializers.ValidationError(
-                {"detail": "Password dose not match"}
-            )
+            raise serializers.ValidationError({"detail": "Password dose not match"})
         try:
             validate_password(attrs["password"])
         except exceptions.ValidationError as e:
@@ -136,9 +134,7 @@ class ChangePasswordSerializer(serializers.Serializer):
         Validate and authenticate the user.
         """
         if attrs.get("new_password_1") != attrs.get("new_password_2"):
-            raise serializers.ValidationError(
-                {"detail": "Old_Password dose not match"}
-            )
+            raise serializers.ValidationError({"detail": "Old_Password dose not match"})
         try:
             validate_password(attrs["new_password_1"])
         except exceptions.ValidationError as e:
@@ -166,13 +162,9 @@ class ReconfirmationApiSerializer(serializers.Serializer):
         try:
             user_obj = Users.objects.get(email=email)
         except Users.DoesNotExist:
-            raise serializers.ValidationError(
-                {"detail": "email dose not exist"}
-            )
+            raise serializers.ValidationError({"detail": "email dose not exist"})
         if user_obj.is_verified:
-            raise serializers.ValidationError(
-                {"detail": "User was verified before"}
-            )
+            raise serializers.ValidationError({"detail": "User was verified before"})
         attrs["user"] = user_obj
         return super().validate(attrs)
 
@@ -195,9 +187,7 @@ class PasswordResetLinkSerializer(serializers.Serializer):
         try:
             user_obj = Users.objects.get(email=email)
         except Users.DoesNotExist:
-            raise serializers.ValidationError(
-                {"detail": "email dose not exist"}
-            )
+            raise serializers.ValidationError({"detail": "email dose not exist"})
         attrs["user"] = user_obj
         return super().validate(attrs)
 
@@ -218,13 +208,9 @@ class ResetPasswordSerializer(serializers.Serializer):
         Validate and authenticate the user.
         """
         if attrs.get("new_password") != attrs.get("new_password_1"):
-            raise serializers.ValidationError(
-                {"detail": "password dose not match"}
-            )
+            raise serializers.ValidationError({"detail": "password dose not match"})
         try:
             validate_password(attrs.get("new_password"))
         except exceptions.ValidationError as e:
-            raise serializers.ValidationError(
-                {"new_password": list(e.messages)}
-            )
+            raise serializers.ValidationError({"new_password": list(e.messages)})
         return super().validate(attrs)

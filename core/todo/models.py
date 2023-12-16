@@ -11,9 +11,7 @@ class TaskTodo(models.Model):
     type and relations
     """
 
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=True, blank=True
-    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title = models.CharField(max_length=200)
     complete = models.BooleanField(default=False)
     createdOn = models.DateTimeField(auto_now_add=True)
