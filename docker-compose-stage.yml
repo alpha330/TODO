@@ -10,7 +10,7 @@ services:
         command: redis-server --save 60 1 --loglevel warning
     backend:
         build: .
-        container_name : training-backend
+        container_name : backend
         command: > 
             sh -c "python manage.py makemigrations &&
                    python manage.py migrate &&
